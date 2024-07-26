@@ -11,28 +11,25 @@ def create_repo(filename):
        res[key] = value
     return res
 
-
-
 repo = create_repo('codons.txt')
-print(repo)
 
 
 def start_translation(mrna_frame_pr):
     lt = []
     for i in mrna_frame_pr:
         lt.append(repo.get(i))
-    print(lt)
-#### FIND A WAY TO CONVERT TO STRING
-
+    lt = map(str, lt)
+    var = ""
+    st = var.join(lt)
+    print(st)
+    return st
 
 
 #convert dna to mrna(just change the T to U)
-with open('dna.txt', 'r') as file:
-    dna = file.read().replace('\n', '')
+with open('dna.txt', 'r') as f3, open('mrna.txt', 'w') as f4:
+    dna = f3.read().replace('\n', '')
     mrna = dna.replace('T', 'U')
-
-with open('mrna.txt', 'w') as file:
-    file.write(mrna)
+    f4.write(mrna)
 
 
 with open('mrna.txt', 'r') as f1, open('protein.txt' , 'w') as f2:
@@ -47,11 +44,9 @@ with open('mrna.txt', 'r') as f1, open('protein.txt' , 'w') as f2:
             mrna_frames.remove(i)
         else:
             break
-    start_translation(mrna_frames)
 
-
-
-with open('protein.txt', 'w') as file:
-    file.write()
+    print(mrna_frames)
+    # print(start_translation(mrna_frames))
+    f2.write(start_translation(mrna_frames))
 
 
