@@ -10,7 +10,6 @@ def create_repo(filename):
        value = columns[3]
        res[key] = value
     return res
-
 repo = create_repo('codons.txt')
 
 
@@ -21,7 +20,6 @@ def start_translation(mrna_frame_pr):
     lt = map(str, lt)
     var = ""
     st = var.join(lt)
-    print(st)
     return st
 
 
@@ -35,18 +33,13 @@ with open('dna.txt', 'r') as f3, open('mrna.txt', 'w') as f4:
 with open('mrna.txt', 'r') as f1, open('protein.txt' , 'w') as f2:
     mrna = f1.read()
     mrna_frames = []
+    start_index = mrna.find('AUG')
+    if (start_index==-1):
+        print("dna file cannot be translated as it misses the start codon")
+        exit()
+    mrna = mrna[start_index:]
+
     for i in range(0, len(mrna), 3):
         mrna_frames.append(mrna[i:i+3])
 
-
-    for i in mrna_frames:
-        if (i != 'AUG'):
-            mrna_frames.remove(i)
-        else:
-            break
-
-    print(mrna_frames)
-    # print(start_translation(mrna_frames))
     f2.write(start_translation(mrna_frames))
-
-
